@@ -16,6 +16,14 @@ import BookDetails from './BookDetails';
 class BookList extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            id: ''
+        }
+    }
+    handleClick = (id) => {
+        this.setState({
+            id
+        })
     }
     displayBooks = () => {
         let { data } = this.props;
@@ -26,19 +34,18 @@ class BookList extends Component {
         } else {
             return data.books.map((book) => {
                 return (
-                    <li onClick={this.handleClick} key={book.id}>{book.name}</li>
+                    <li onClick={() => this.handleClick(book.id)} key={book.id}>{book.name}</li>
                 )
             })
         }
     }
     render() {
-        console.log(this.props);
         return (
             <div>
                 <ul id="book-list">
                     {this.displayBooks()}
                 </ul>
-                <BookDetails />
+                <BookDetails id={this.state.id} />
             </div>
         )
     }
